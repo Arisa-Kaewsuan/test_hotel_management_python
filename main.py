@@ -1,18 +1,31 @@
 def readFile():
-    # STEP 1 : read file
     file = open("input.txt", "r")
-    # TEST  STEP 1
-    # print(file.read())
-    # print(file.readline())
-    
-    
-    # STEP 2 : store data read from file in "List"
-    for line in file:
-        file_list = line.split()
-        # TEST  STEP 2
-        # print(type(file_list))
-        # print(file_list)
-    
-    
+    return file.read()  # String
+
+
+def getCommand(file):
+    command = []
+    for line in file.splitlines():
+        list = line.splitlines()
+        for i in list:  # String
+            arr = i.split()  # list -line
+            command.append(arr[0])
+    return command
+
+
+def checkCase(command):
+    cmd = []
+    for i in command:
+        cmd.append(i)  # String -list
+        match cmd[i]:
+            case "create_hotel":
+                print("create hotel")
+            
+
+       
         
-readFile()
+
+
+file = readFile()
+command = getCommand(file)
+checkCase(command)
