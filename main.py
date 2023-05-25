@@ -3,6 +3,15 @@ def readFile():
     return file.read()  # String
 
 
+def readLine(file):
+    arr = []
+    for line in file.splitlines():
+        list = line.splitlines()
+        for i in list:  # String
+            arr.append(i.split())
+    return arr
+
+
 def getCommand(file):
     command = []
     for line in file.splitlines():
@@ -13,14 +22,14 @@ def getCommand(file):
     return command
 
 
-def checkCase(command):
+def checkCase(command,line):
     # print(len(command))
     i = 0
     while i < len(command):
         cmd = command[i]
         
         if cmd == "create_hotel":
-            print("create_hotel")
+            print("Hotel created with " + line[i][i+1] + " floor(s), " + line[i][i+2] + " room(s) per floor.")
             return
            
         elif cmd == "book":
@@ -65,5 +74,6 @@ def checkCase(command):
                 
 
 file = readFile()
+line = readLine(file)
 command = getCommand(file)
-checkCase(command)
+checkCase(command,line)
