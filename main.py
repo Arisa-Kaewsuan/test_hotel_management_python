@@ -51,12 +51,15 @@ def bookRoom(line,i):
             print("book succes")
             break
     return 
-
-
 #print(f"Room {room_number} is booked by {book_name} with keycard number {keycard_number}.")
 
 def list_available_rooms():
     return
+
+
+
+
+
 
 def checkCase(command, line):
     i = 0
