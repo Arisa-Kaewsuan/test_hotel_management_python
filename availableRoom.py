@@ -14,36 +14,43 @@ def command(file):
 def availableRoom(cmd):
     i = 0
     checkin_room = []
-    keycard_number = 0
     all_room = []
 
     while i < len(cmd):
-        if cmd[i][0] == "list_available_rooms":
+        if cmd[i][0] == "create_hotel":
             floor = int(cmd[i][1])
             room = int(cmd[i][2])
             for i in range(1, floor+1):
                 for j in range(1, room+1):
                     all_room.append(i*100+j)
-            print(all_room)
-
-        elif cmd[i][0] == "book":
-            # เก็บตัวแปร
-            room_number = cmd[i][1]
-            name_guest = cmd[i][2]
-            age_guest = cmd[i][3]
-            keycard_number += 1
-
+            #print(all_room)
+            
+        if cmd[i][0] == "book":
+            room_number = int(cmd[i][1])
             if len(checkin_room) == 0:
                 checkin_room.append(room_number)
-                #print(f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number }.")
+                all_room.remove(room_number)
+                #print(all_room)
+                
             elif len(checkin_room) > 0:
                 checkin_room.append(room_number)
-                #print(f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number }.")
+                all_room.remove(room_number)
+                #print(all_room)
+                
+            
+        elif cmd[i][0] == "list_available_rooms":
+            return all_room
+        
         i += 1
-    return
+
 
 
 path = "input.txt"
 file = readFile(path)
 cmd = command(file)
-availableRoom(cmd)
+av_room = availableRoom(cmd) #list
+
+f1 = ""
+for i in av_room:
+    f1 += str(i) + " "
+print(f1)
