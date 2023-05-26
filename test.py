@@ -31,20 +31,20 @@ def getCommand(file):
 # output : line list [0]
 def guestList(file):
     command = []
-    keycard_number = 0
+    guest = []
     for line in file.splitlines():
         list = line.splitlines()
         for i in list:  # String
             arr = i.split()  # list -line
             if arr[0] == "book":
                 #print("add data")
-                guest[i][0]
-    return
+                guest.append(arr)
+    return guest
 
 
 file = readFile()
 line = readLine(file)
 command = getCommand(file)
-guestList(file)
-#print(command)
+guest = guestList(file)
+#print(guest)
 
