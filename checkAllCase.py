@@ -1,3 +1,4 @@
+import bookRoom as br
 
 class checkAllCase:
     def __init__(self,path):
@@ -21,14 +22,18 @@ class checkAllCase:
     def checkCase(self):
         cmd = self.command()
         i = 0
+    
         while i < len(cmd):
             # create_hotel
             if cmd[i][0] == "create_hotel":
-                print("create_hotel")
+                floor = cmd[i][1]
+                room = cmd[i][2] 
+                print(f"Hotel created with {floor} floor(s), {room} room(s) per floor.")
 
             # booking room
             elif cmd[i][0] == "book":
-                print("book")
+                book = br.bookRoom()
+                print(book)
 
             elif cmd[i][0] == "list_available_rooms":
                 print("list_available_rooms")
