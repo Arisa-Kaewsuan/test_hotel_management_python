@@ -1,7 +1,7 @@
 # Work Process
 [my_workflow](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/my_workflow.jpg)<br />
 [my_workflow_checkout_case](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/checkout_case.jpg)<br />
-[my_workflow_edit_book_case](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/edit_bookCase.jpg)
+[my_workflow_edit_book_case](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/edit_book_case.jpg)
 
 # Hotel Management System
 
