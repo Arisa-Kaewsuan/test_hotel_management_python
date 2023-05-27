@@ -1,3 +1,4 @@
+# bug : keycard number ต้องเช็คใหม่
 import mysql.connector
 
 def readFile(path):
@@ -15,7 +16,6 @@ def command(file):
 
 def book(cmd):
     i = 0
-    count = 0
     keycard_number = 0
     
     while i < len(cmd):
@@ -37,6 +37,7 @@ def book(cmd):
             mycursor = mydb.cursor()
             
             # add condition : จะ book ได้ก่อต่อเมือ  room_number ไม่ซ้ำ คือก่อน insert ต้อง selectมาดูก่อนว่ามีค่านี้มั้ย
+            count = 0
             sql = "SELECT room_number FROM `guest_list` WHERE room_number=(%s)"
             val = [(room_number)]
             mycursor.execute(sql, val)
@@ -60,7 +61,7 @@ def book(cmd):
                 ]
                 mycursor.executemany(sql, val)
                 mydb.commit()
-                print(mycursor.rowcount, f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number}.")
+                print(f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number}.")
                 
         i += 1
     return 
