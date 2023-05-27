@@ -1,4 +1,3 @@
-# still have error!!!!
 import mysql.connector
 
 def readFile(path):
@@ -43,15 +42,14 @@ def book(cmd):
             mycursor.execute(sql, val)
             myresult = mycursor.fetchall()
             for x in myresult:
-                count += 1
+                count += 1 # มีค่าซ้ำ
             if count > 0:
-
                 # ดึง name_guest ที่ค่าตรงกับ room_number มาแสดง
                 sql = "SELECT name_guest FROM `guest_list` WHERE room_number=(%s)"
                 val = [(room_number)]
                 mycursor.execute(sql, val)
-                myresult = str(mycursor.fetchone()[0])
-                name_current_guest = myresult.strip("b\'")
+                myresult = str(mycursor.fetchone())
+                name_current_guest = myresult.strip("b(),\'")
                 print(
                     f"Cannot book room {room_number} for {name_guest}, The room is currently booked by {name_current_guest}.")
             else:
