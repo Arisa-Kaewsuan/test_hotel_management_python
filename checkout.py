@@ -46,11 +46,20 @@ def checkout(cmd):
                 mycursor.execute(sql, val)
                 myresult = str(mycursor.fetchone()[0])
                 room_number = myresult.strip("b\'")
+                
+                # change status from "book" to  checkout
+                sql = "SELECT status FROM `guest_list` WHERE keycard_number =(%s)"
+                val = [(keycard_checkout)]
+                mycursor.execute(sql, val)
+                myresult = str(mycursor.fetchone()[0])
+                status = myresult.strip("\'")
+                # print(status)
                 print(f"Room {room_number} is checkout.")
             else:
                 print(f"Only {name_guest} can checkout with keycard number {keycard_checkout}.")
                 
             #print("checkout")
+            #ต้องเพิ่ม case : เปลี่ยนสถานะจาก book เป็น checkout  ด้วย
         i += 1
     return
 
