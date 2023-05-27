@@ -1,3 +1,6 @@
+# Work Process
+[my_workflow](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/my_workflow.jpg)
+
 # Hotel Management System
 
 Self Check-in & Check-out Function
