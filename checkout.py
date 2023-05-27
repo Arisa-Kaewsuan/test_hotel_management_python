@@ -37,8 +37,12 @@ def checkout(cmd):
             val = [(keycard_checkout)]
             mycursor.execute(sql, val)
             myresult = str(mycursor.fetchone()[0])
-            name_current_guest = myresult.strip("b\'")
-            print(name_current_guest)
+            name_guest = myresult.strip("b\'")
+            #print(name_guest)
+            if name_checkout == name_guest:
+                print("Room 201 is checkout.")
+            else:
+                print("Only Thor can checkout with keycard number 1.")
                 
             #print("checkout")
         i += 1
