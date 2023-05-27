@@ -63,22 +63,7 @@ def book(cmd):
                 mycursor.executemany(sql, val)
                 mydb.commit()
                 print(mycursor.rowcount, f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number}.")
-            
-            
-            # #เก็บตัวแปร
-            # room_number = cmd[i][1]
-            # name_guest = cmd[i][2]
-            # age_guest = cmd[i][3]
-            # keycard_number += 1
-            
-            # if len(checkin_room) == 0:
-            #     checkin_room.append(room_number)
-            #     print(f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number }.")
-            # elif (len(checkin_room) > 0) and (room_number in checkin_room):
-            #     print(f"Cannot book room {room_number} for {name_guest}, The room is currently booked by  Thor.")
-            # elif len(checkin_room) > 0:
-            #     checkin_room.append(room_number)
-            #     print(f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number }.")
+                
         i += 1
     return 
         

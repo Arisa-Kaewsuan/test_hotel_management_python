@@ -1,3 +1,5 @@
+import mysql.connector
+
 def readFile(path):
     file = open(path, "r")
     file = file.read()
@@ -13,29 +15,32 @@ def command(file):
 
 def checkout(cmd):
     i = 0
-    checkin = {}
-    keycard_checkin = 0
+    keycard_number = 0
+    count = 0
+    
     while i < len(cmd):
-        if cmd[i][0] == "book":
-            room_checkin = int(cmd[i][1])
-            keycard_checkin += 1
-
-            if len(checkin) == 0:
-                checkin[keycard_checkin] = {}
-                checkin[keycard_checkin]["room"] = room_checkin
-                checkin[keycard_checkin]["keygard"] = keycard_checkin
-            elif len(checkin) > 0:
-                checkin[keycard_checkin] = {}
-                checkin[keycard_checkin]["room"] = room_checkin
-                checkin[keycard_checkin]["keygard"] = keycard_checkin
-            print(checkin["keygard_checkin"]["keygard"])
-
+        if cmd[i][0] == "checkout":
+            # declare variables
+            keycard_checkout = cmd[i][1]
+            name_checkout = cmd[i][2]
+            
+            # connect database
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="",
+                database="hotel_management_system"
+            )
+            mycursor = mydb.cursor()
+            
+            sql = "SELECT name_guest FROM `guest_list` WHERE keycard_number =(%s)"
+            val = [(keycard_checkout)]
+            mycursor.execute(sql, val)
+            myresult = str(mycursor.fetchone()[0])
+            name_current_guest = myresult.strip("b\'")
+            print(name_current_guest)
                 
-        # if cmd[i][0] == "checkout":
-        #     keycard_checkout = int(cmd[i][1])
-        #     name_checkout = cmd[i][2]
-        #     if checkin[203]["keygard_checkin"] == keycard_checkout:
-        #         print("")
+            #print("checkout")
         i += 1
     return
 
