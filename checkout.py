@@ -46,20 +46,38 @@ def checkout(cmd):
                 mycursor.execute(sql, val)
                 myresult = str(mycursor.fetchone()[0])
                 room_number = myresult.strip("b\'")
-                
-                # change status from "book" to  checkout
-                sql = "SELECT status FROM `guest_list` WHERE keycard_number =(%s)"
+                # get age
+                sql = "SELECT age FROM `guest_list` WHERE keycard_number =(%s)"
                 val = [(keycard_checkout)]
                 mycursor.execute(sql, val)
                 myresult = str(mycursor.fetchone()[0])
-                status = myresult.strip("\'")
+                age = myresult.strip("b\'")
+                #print(age)
+                
+                # add data in checkout table
+                room_checkout = room_number
+                status_checkout = "checkout"
+                age_checkout = age
+                sql = "INSERT INTO guest_checkout_list (keycard_number,room_number, name_guest,status,age) VALUES (%s,%s,%s,%s,%s)"
+                val = [
+                    (keycard_checkout, room_checkout, name_checkout, status_checkout, age_checkout),
+                ]
+                mycursor.executemany(sql, val)
+                mydb.commit()
+                #print("add data to checkout table success")
+                
+                # delete data from guest_list table
+                sql = " DELETE FROM  guest_list WHERE keycard_number_number=(%s)"
+                val = [(keycard_checkout)]
+                mycursor.execute(sql, val)
+                mydb.commit()
+                print("delete data from guest_list success")
+                
                 # print(status)
                 print(f"Room {room_number} is checkout.")
             else:
                 print(f"Only {name_guest} can checkout with keycard number {keycard_checkout}.")
-                
-            #print("checkout")
-            #ต้องเพิ่ม case : เปลี่ยนสถานะจาก book เป็น checkout  ด้วย
+
         i += 1
     return
 
