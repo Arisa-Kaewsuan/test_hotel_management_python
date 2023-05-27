@@ -15,7 +15,7 @@ def command(file):
 
 def book(cmd):
     i = 0
-    checkin_room = []
+    count = 0
     keycard_number = 0
     
     while i < len(cmd):
@@ -35,17 +35,25 @@ def book(cmd):
                 database="hotel_management_system"
             )
             mycursor = mydb.cursor()
-            sql = "INSERT INTO guest_list (keycard_number,room_number, name_guest,status,age) VALUES (%s,%s,%s,%s,%s)"
-            val = [
-                ('1', room_number, name_guest, status, age),
-            ]
-
-            mycursor.executemany(sql, val)
-
-            mydb.commit()
-
-            print(mycursor.rowcount, "record was inserted.")
-            break
+            
+            # add condition : จะ book ได้ก่อต่อเมือ  room_number ไม่ซ้ำ คือก่อน insert ต้อง selectมาดูก่อนว่ามีค่านี้มั้ย
+            sql = "SELECT room_number FROM `guest_list` WHERE room_number=(%s)"
+            val = [(room_number)]
+            mycursor.execute(sql, val)
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                count += 1
+            if count > 0:
+                print(f" {name_guest} cannot book")
+            else:
+                # add data in DB
+                sql = "INSERT INTO guest_list (keycard_number,room_number, name_guest,status,age) VALUES (%s,%s,%s,%s,%s)"
+                val = [
+                    (keycard_number, room_number, name_guest, status, age),
+                ]
+                mycursor.executemany(sql, val)
+                mydb.commit()
+                print(mycursor.rowcount, f" {name_guest} book succes")
             
             
             # #เก็บตัวแปร
