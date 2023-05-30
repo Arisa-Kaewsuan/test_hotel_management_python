@@ -1,74 +1,50 @@
-# bug : keycard number ต้องเช็คใหม่
-import mysql.connector
+import connectDB as db
 
-def readFile(path):
-    file = open(path, "r")
-    file = file.read()
-    return file  
-
-
-def command(file):
-    cmd = []
-    for line in file.splitlines():
-        cmd.append(line.split())
-    return cmd
-
-
-def book(cmd):
-    i = 0
-    keycard_number = 0
-    
-    while i < len(cmd):
-        if cmd[i][0] == "book":
-            # declare variable
-            keycard_number += 1
-            room_number = cmd[i][1]
-            name_guest = cmd[i][2]
-            status = cmd[i][0]
-            age = cmd[i][3]
-            
-            # connect database
-            mydb = mysql.connector.connect(
-                host="localhost",
-                user="root",
-                password="",
-                database="hotel_management_system"
-            )
-            mycursor = mydb.cursor()
-            
-            # add condition : จะ book ได้ก่อต่อเมือ  room_number ไม่ซ้ำ คือก่อน insert ต้อง selectมาดูก่อนว่ามีค่านี้มั้ย
-            count = 0
-            sql = "SELECT room_number FROM `guest_list` WHERE room_number=(%s)"
-            val = [(room_number)]
-            mycursor.execute(sql, val)
-            myresult = mycursor.fetchall()
-            for x in myresult:
-                count += 1 # มีค่าซ้ำ
-            if count > 0:
-                # ดึง name_guest ที่ค่าตรงกับ room_number มาแสดง
-                sql = "SELECT name_guest FROM `guest_list` WHERE room_number=(%s)"
-                val = [(room_number)]
-                mycursor.execute(sql, val)
-                myresult = str(mycursor.fetchone())
-                name_current_guest = myresult.strip("b(),\'")
-                print(
-                    f"Cannot book room {room_number} for {name_guest}, The room is currently booked by {name_current_guest}.")
-            else:
-                # add data in DB
-                sql = "INSERT INTO guest_list (keycard_number,room_number, name_guest,status,age) VALUES (%s,%s,%s,%s,%s)"
-                val = [
-                    (keycard_number, room_number, name_guest, status, age),
-                ]
-                mycursor.executemany(sql, val)
-                mydb.commit()
-                print(f"Room {room_number} is booked by {name_guest} with keycard number {keycard_number}.")
-                
-        i += 1
-    return 
+class book():
+    def __init__(self, command, status, age, name, room, keycard):
+        self.command = command
+        self.status = status
+        self.age = age
+        self.name = name
+        self.room = room
+        self.keycard = keycard
         
+    def book_room(self):
+        # create variable
+        cmd = self.command
+        status = self.status
+        age = self.age
+        name = self.name
+        room = self.room
+        keycard = self.keycard
+        # print(cmd + status + age + name +room)
+        
+        # add data into database
+        sql = "SELECT name_guest FROM Hotel WHERE room_number = %s"
+        val = [room]
+        obj = db.connectDB(sql)
+        result = obj.select_db(val)
+        result = ' '.join(str(e) for e in result)
+        name_guest = result.strip("b(),\'")
+        
+        if (name_guest != "None" and name_guest != name):
+            print(f"Cannot book room  {room} for  {name}, The room is currently booked by {name_guest}.")
+        elif name_guest == name:
+            print(f"Room {room} is booked by {name} with keycard number {keycard}.")
+        elif name_guest == "None":
+            sql = "UPDATE Hotel SET keycard_number=%s,name_guest=%s,age_guest=%s,status=%s WHERE room_number=%s"
+            val = (keycard, name, age, status, room)
+            obj = db.connectDB(sql)
+            obj.update_db(val)
+            print(f"Room {room} is booked by {name} with keycard number {keycard}.")
+            
+            
 
-path = "input.txt"
-file = readFile(path)
-cmd = command(file)
-book(cmd)
+
+    
+    
+# use this class : book
+# obj = book("book", "book", "32", "Thor", "203")
+# obj.book_room()
+
 

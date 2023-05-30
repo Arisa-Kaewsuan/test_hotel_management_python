@@ -1,35 +1,36 @@
-
-def readFile(path):
-    file = open(path, "r")
-    file = file.read()
-    return file  
+import connectDB as db
 
 
-def command(file):
-    cmd = []
-    for line in file.splitlines():
-        cmd.append(line.split())
-    return cmd
+class createHotel():
+    def __init__(self, command, floor, room):
+        self.command = command
+        self.floor = floor
+        self.room = room
+
+    def create_hotel(self):
+        # Declare variable
+        cmd = self.command
+        floor = self.floor
+        room = self.room
+        
+        # Creat table name "Hotel"
+        sql = "CREATE TABLE Hotel (keycard_number INT AUTO_INCREMENT PRIMARY KEY, room_number VARCHAR(20) UNIQUE, name_guest TEXT(30) , floor INT(30), age_guest INT(200), status VARCHAR(30))"
+        obj = db.connectDB(sql)
+        obj.create_db(floor, room)
+
+        # Insert data : room number
+        for i in range(1, floor+1):
+            for j in range(1, room+1):
+                room_number = i*100+j
+                #print(room_number)
+                sql = "INSERT INTO Hotel (room_number,floor) VALUES (%s,%s)"
+                val = (room_number,i)
+                obj = db.connectDB(sql)
+                obj.insert_db(val)
+        
+        print(f"Hotel created with {floor} floor(s), {room} room(s) per floor.")
 
 
-def createHotel(cmd):
-    i = 0
-    all_room = []
-    while i < len(cmd):
-        if cmd[i][0] == "create_hotel":
-            floor = int(cmd[i][1])
-            room = int(cmd[i][2])
-            for i in range(1, floor+1):
-                for j in range(1, room+1):
-                    all_room.append(i*100+j)
-            #print(all_room)
-            print(f"Hotel created with {floor} floor(s), {room} room(s) per floor.")
-            i += 1
-            return
-                
-path = "input.txt" 
-file = readFile(path) 
-cmd = command(file) 
-room = createHotel(cmd)
-
-
+# use this class : createHotel
+# obj = createHotel("create_hotel", 2, 3)
+# obj.create_hotel()
