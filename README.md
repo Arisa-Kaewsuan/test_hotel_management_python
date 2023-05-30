@@ -1,5 +1,7 @@
 # Work Process
-[my_workflow](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/my_workflow.jpg)<br />
+[workflow_1](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_1.jpg)<br />
+[workflow_2](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_2.jpg)<br />
+[workflow_3](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_3.jpg)<br />
 ยังเหลือ error อีก 2 จุด : async , keycard
 
 # Hotel Management System
