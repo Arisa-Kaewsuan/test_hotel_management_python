@@ -2,7 +2,7 @@
 [workflow_1](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_1.jpg)<br />
 [workflow_2](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_2.jpg)<br />
 [workflow_3](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_3.jpg)<br />
-ยังเหลือ error อีก 2 จุด : async , keycard
+ยังเหลือ error อีก 1 จุด : keycard-checkout
 
 # Hotel Management System
 
