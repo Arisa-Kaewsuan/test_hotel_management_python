@@ -10,7 +10,7 @@ class list_guest():
     for x in tup:
         name = (str(x[0])).strip("b\'")
         list.append(name)
-    print(*list, sep=", ")
+    # print(*list, sep=", ")
 
 # use this class
 # obj = list_guest()

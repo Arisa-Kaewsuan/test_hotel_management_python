@@ -51,14 +51,13 @@ class checkAllCase:
                 age = cmd[i][3]
                 name = cmd[i][2]
                 room = cmd[i][1]
-                keycard += 1
-
-                obj = b.book(command, status, age, name, room, keycard)
+                obj = b.book(command, status, age, name, room)
                 obj.book_room()
 
             # list available room
             elif cmd[i][0] == "list_available_rooms":
                 obj = ls.list_available_room()
+                obj.list_room()
 
             elif cmd[i][0] == "checkout":
                 keycard_checkout = cmd[i][1]
