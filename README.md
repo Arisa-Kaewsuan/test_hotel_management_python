@@ -3,7 +3,7 @@
 [workflow_2](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_2.jpg)<br />
 [workflow_3](https://github.com/Arisa-Kaewsuan/test_hotel_management_python/blob/main/workflow_3.jpg)<br />
 After 8 days [25/05/2566 - 1/06/2566] . . . it was done.<br />
-you can fork this Repo and then run " main.py " to see the result .
+you can clone this Repo and then run " main.py " to see the result .
 
 # Hotel Management System
 
