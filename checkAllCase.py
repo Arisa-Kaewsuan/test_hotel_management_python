@@ -40,9 +40,9 @@ class checkAllCase:
                 command = cmd[i][0]
                 floor = int(cmd[i][1])
                 room = int(cmd[i][2])
-
                 obj = ch.createHotel(command, floor, room)
-                obj.create_hotel()
+                keycard = obj.create_hotel()
+    
 
             # booking room
             elif cmd[i][0] == "book":
@@ -51,8 +51,11 @@ class checkAllCase:
                 age = cmd[i][3]
                 name = cmd[i][2]
                 room = cmd[i][1]
-                obj = b.book(command, status, age, name, room)
-                obj.book_room()
+                keycard_stack = keycard
+                obj = b.book(command, status, age, name, room, keycard_stack)
+                keycard = obj.book_room()
+                # print(keycard)
+        
 
             # list available room
             elif cmd[i][0] == "list_available_rooms":
@@ -62,38 +65,52 @@ class checkAllCase:
             elif cmd[i][0] == "checkout":
                 keycard_checkout = cmd[i][1]
                 name_checkout = cmd[i][2]
-                obj = cho.checkout(keycard_checkout, name_checkout)
-                obj.room_checkout()
+                keycard_stack = keycard
+                obj = cho.checkout(keycard_checkout, name_checkout, keycard_stack)
+                keycard = obj.room_checkout()
+                # print(keycard)
+        
 
             elif cmd[i][0] == "list_guest":
                 obj = lg.list_guest()
+                obj.list()
+         
 
             elif cmd[i][0] == "get_guest_in_room":
                 room = cmd[i][1]
                 obj = gg.get_guest_in_room(room)
+                # print("get_guest_in_room")
                 obj.get_guest()
+               
 
             elif cmd[i][0] == "list_guest_by_age":
                 symbol = cmd[i][1]
                 age = cmd[i][2]
                 obj = la.list_guest_by_age(symbol,age)
                 obj.list_guest()
+                # print("list_guest_by_age")
+
 
             elif cmd[i][0] == "list_guest_by_floor":
                 floor = cmd[i][1]
                 obj = lf.list_guest_by_floor(floor)
                 obj.list_guest()
+                # print("list_guest_by_floor")
+                
 
             elif cmd[i][0] == "checkout_guest_by_floor":
                 floor = cmd[i][1]
-                obj = chof.checkout_guest_by_floor(floor)
-                obj.checkout_guest()
+                keycard_stack = keycard
+                obj = chof.checkout_guest_by_floor(floor, keycard_stack)
+                keycard = obj.checkout_guest()
+            
 
             elif cmd[i][0] == "book_by_floor":
                 floor = cmd[i][1]
                 name = cmd[i][2]
-                obj = bf.book_by_floor(floor, name)
-                obj.checkout_guest()
+                keycard_stack = keycard
+                obj = bf.book_by_floor(floor, name, keycard_stack)
+                keycard = obj.checkout_guest()
 
             i += 1
         return

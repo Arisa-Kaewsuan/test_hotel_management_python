@@ -15,7 +15,9 @@ class list_guest_by_floor():
         for x in tup:
             name = (str(x[0])).strip("b\'")
             list.append(name)
-        # print(*list, sep=", ")
+            
+        print(*list, sep=", ")
+        return
 
 
 # use this class

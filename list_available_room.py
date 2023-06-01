@@ -9,7 +9,7 @@ class list_available_room():
         tup = obj.select_db(val)
         for x in tup:
             print(','.join([str(e) for e in x]))
-        return
+        return 
 
 # use this class
 # obj = list_available_room()

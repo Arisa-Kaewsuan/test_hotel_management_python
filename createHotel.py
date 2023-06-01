@@ -1,5 +1,5 @@
 import connectDB as db
-
+import keycard as k
 
 class createHotel():
     def __init__(self, command, floor, room):
@@ -13,8 +13,12 @@ class createHotel():
         floor = self.floor
         room = self.room
         
+        # create keycard and return
+        obj = k.keycard()
+        keycard = obj.create_keycard(floor, room)
+        
         # Creat table name "Hotel"
-        sql = "CREATE TABLE Hotel (keycard_number INT AUTO_INCREMENT PRIMARY KEY, room_number VARCHAR(20) UNIQUE, name_guest TEXT(30) , floor INT(30), age_guest INT(200), status VARCHAR(30))"
+        sql = "CREATE TABLE Hotel (keycard_number INT(200), room_number VARCHAR(20) UNIQUE, name_guest TEXT(30) , floor INT(30), age_guest INT(200), status VARCHAR(30))"
         obj = db.connectDB(sql)
         obj.create_db(floor, room)
 
@@ -29,8 +33,10 @@ class createHotel():
                 obj.insert_db(val)
         
         print(f"Hotel created with {floor} floor(s), {room} room(s) per floor.")
+        return keycard
 
 
 # use this class : createHotel
 # obj = createHotel("create_hotel", 2, 3)
-# obj.create_hotel()
+# print(obj.create_hotel())
+
